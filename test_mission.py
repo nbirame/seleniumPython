@@ -16,9 +16,9 @@ class TestUntitled():
 
     def test_untitled(self):
         liste_mission = [
-            [1, 3, 2, "Dakar-Fatick-Dakar", "Test Automation 1", 1, 1, 2, 2, 1, 5],
-            [1, 5, 2, "Dakar-Kaffrine-Dakar", "Test Automation 2", 1, 2, 4, 2, 1, 3],
-            [1, 6, 2, "Dakar-Thies-Dakar", "Test Automation 3", 1, 1, 3, 2, 4, 4]
+            [1, 3, 2, "Dakar-Fatick-Dakar", "Test Automation 1", 1, 1, 2, 2, 1, 5, 5, 5, 6, 7],
+            [1, 5, 2, "Dakar-Kaffrine-Dakar", "Test Automation 2", 1, 2, 4, 2, 1, 6, 6, 6, 6, 7],
+            [1, 6, 2, "Dakar-Thies-Dakar", "Test Automation 3", 1, 1, 3, 2, 4, 4, 2, 4, 4, 6]
         ]
         for i in range(len(liste_mission)):
             self.driver.get(
@@ -48,11 +48,11 @@ class TestUntitled():
             time.sleep(5)
             self.driver.find_element(By.NAME, "date_depart").click()
             time.sleep(2)
-            self.driver.find_element(By.CSS_SELECTOR, "tr:nth-child(5) > .day:nth-child(5)").click()
+            self.driver.find_element(By.CSS_SELECTOR, f"tr:nth-child({liste_mission[i][11]}) > .day:nth-child({liste_mission[i][12]})").click()
             time.sleep(2)
             self.driver.find_element(By.NAME, "date_retour").click()
             time.sleep(2)
-            self.driver.find_element(By.CSS_SELECTOR, "tr:nth-child(6) > .day:nth-child(7)").click()
+            self.driver.find_element(By.CSS_SELECTOR, f"tr:nth-child({liste_mission[i][13]}) > .day:nth-child({liste_mission[i][14]})").click()
             time.sleep(4)
             lieu_dep = Select(self.driver.find_element(By.NAME, "lieu_depart"))
             lieu_dep.select_by_index(liste_mission[i][6])
@@ -73,11 +73,35 @@ class TestUntitled():
             vehicle = Select(self.driver.find_element(By.NAME, "conducteur"))
             vehicle.select_by_index(liste_mission[i][9])
             time.sleep(2)
+            self.driver.find_element(By.LINK_TEXT, "VEHICULES DE LA MISSION").click()
+            time.sleep(2)
+            self.driver.find_element(By.LINK_TEXT, "Ajouter une ligne").click()
+            time.sleep(2)
+            Select(self.driver.find_element(By.NAME, "voiture_id")).select_by_index(3)
+            # vehicle.select_by_index(liste_mission[i][8])
+            time.sleep(2)
+            Select(self.driver.find_element(By.NAME, "conducteur")).select_by_index(3)
+            # vehicle.select_by_index(liste_mission[i][9])
+            time.sleep(2)
             self.driver.find_element(By.LINK_TEXT, "Carburant").click()
             carte = Select(self.driver.find_element(By.NAME, "cartecarburant_id"))
             carte.select_by_index(liste_mission[i][10])
             time.sleep(4)
-            self.driver.find_element(By.CSS_SELECTOR, ".o_form_button_save").click()
-            assert int(self.driver.find_element(By.NAME, "cout_mission").text.replace(' ', '')) == 1350000 + (39 * 990)
+            # self.driver.find_element(By.CSS_SELECTOR, ".o_form_button_save").click()
+            if i == 0:
+                assert int(self.driver.find_element(By.NAME, "total_perdieme").text.replace(' ', '')) == 9 * 150000
+                assert float(self.driver.find_element(By.NAME, "cout_carburant").text.replace(' ', '').replace(',', '.')) == 39 * 990
+                assert int(self.driver.find_element(By.NAME, "cout_mission").text.replace(' ', '')) == 1350000 + (39 * 990)
+            elif i == 1:
+                assert int(self.driver.find_element(By.NAME, "total_perdieme").text.replace(' ', '')) == 1 * 150000
+                assert float(self.driver.find_element(By.NAME, "cout_carburant").text.replace(' ', '').replace(',', '.')) == 60 * 990
+                assert int(self.driver.find_element(By.NAME, "cout_mission").text.replace(' ', '')) == 150000 + (
+                            60 * 990)
+            elif i == 2:
+                assert int(self.driver.find_element(By.NAME, "total_perdieme").text.replace(' ', '')) == 16 * 150000
+                assert float(self.driver.find_element(By.NAME, "cout_carburant").text.replace(' ', '').replace(',', '.')) == 27.60 * 990
+                assert int(self.driver.find_element(By.NAME, "cout_mission").text.replace(' ', '')) == 16 * 150000 + (
+                        27.60 * 990)
+
 
             # time.time(3)

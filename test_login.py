@@ -23,10 +23,10 @@ class TestUntitled():
         # Test name: Untitled
         # Step # | name | target | value
         # 1 | open | /web/login |
-        list_password = [['birame.ndiaye@fongip.sn', 'ndiaye236'],
-                         ['birame.ndiaye@fongip.sn', 'ndiaye36'],
-                         ['birame.ndiaye@fonip.sn', 'ndiaye236'],
-                         ['birame.ndiaye@fongp.sn', 'ndiaye136']]
+        list_password = [['user@test.com', 'password'],
+                         ['user@test2.com', 'password2'],
+                         ['user@test3.com', 'password3'],
+                         ['user@test4.com', 'password4']]
         for i in range(len(list_password)):
             # self.driver.get("https://test-fongip.odoo.com/web/login")
             self.driver.get("http://localhost:8069/web/login")
