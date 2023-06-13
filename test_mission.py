@@ -102,6 +102,3 @@ class TestUntitled():
                 assert float(self.driver.find_element(By.NAME, "cout_carburant").text.replace(' ', '').replace(',', '.')) == 27.60 * 990
                 assert int(self.driver.find_element(By.NAME, "cout_mission").text.replace(' ', '')) == 16 * 150000 + (
                         27.60 * 990)
-
-
-            # time.time(3)

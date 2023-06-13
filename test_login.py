@@ -35,12 +35,12 @@ class TestUntitled():
             # 3 | click | id=login |
             time.sleep(3)
             self.driver.find_element(By.ID, "login").click()
-            # 4 | type | id=login | birame.ndiaye@fongip.sn
+            # 4 | type | id=login |
             self.driver.find_element(By.ID, "login").send_keys(list_password[i][0])
             time.sleep(3)
             # 5 | click | id=password |
             self.driver.find_element(By.ID, "password").click()
-            # 6 | type | id=password | ndiaye236
+            # 6 | type | id=password |
             self.driver.find_element(By.ID, "password").send_keys(list_password[i][1])
             time.sleep(3)
             # 7 | click | css=.btn-block |
